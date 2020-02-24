@@ -8,9 +8,9 @@ otherJob.style.display = 'none';
 document.addEventListener('input', function (event) {
 
     // Only run for #title select
-    if (event.target.id !== 'other') return;
+    if (event.target.id !== 'title') return;
   
-    if (event.target.value === 'designer') {
+    if (event.target.value === 'other') {
         ////// aca iria tu codigo /////////
         document.getElementById('other-title').style.display = 'block';
     } else {
@@ -18,4 +18,3 @@ document.addEventListener('input', function (event) {
     }
   
   }, false);
-  
