@@ -102,7 +102,8 @@ document.querySelector('.activities').addEventListener('change', (e) => {
 //Payment Section
 // Hide the “Select Payment Method” `option` so it doesn’t show up in the drop down menu.
 const selectPaymentInfo = document.querySelectorAll('#payment option');
-selectPaymentInfo[0].hidden = true;
+selectPaymentInfo[0].style.display = 'none'; 
+selectPaymentInfo[1].setAttribute('selected', true);
 //Get the value of the payment select element, and if it’s equal to ‘credit card’, set the credit card payment section in the form to show, and set the other two options to hide.
 const designPaymentMethod = document.querySelector('#payment');
 const creditcard = document.getElementById('credit-card');
