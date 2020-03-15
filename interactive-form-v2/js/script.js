@@ -70,6 +70,7 @@ designSelectElement.addEventListener('change', (e) => {
 		}
 	}
 });
+
 //Register for Activities
 const element = document.createElement('element');
 document.querySelector('.activities').appendChild(element);
@@ -97,6 +98,7 @@ document.querySelector('.activities').addEventListener('change', (e) => {
 		}
 	}
 });
+
 //Payment Section
 // Hide the “Select Payment Method” `option` so it doesn’t show up in the drop down menu.
 const selectPaymentInfo = document.querySelectorAll('#payment option');
@@ -142,7 +144,7 @@ const email = document.querySelector("#mail");
 const selectActivity = document.querySelector('.activities');
 const activityLegend = document.querySelector('.activities legend');
 const activitiesInput = document.querySelectorAll(".activities input");
-const tarja = document.querySelector("#cc-num");
+const cc = document.querySelector("#cc-num");
 const zip = document.querySelector("#zip");
 const cvv = document.querySelector("#cvv");
 
@@ -150,18 +152,18 @@ const cvv = document.querySelector("#cvv");
 const nameValidator = () => {
 	const nameVal = name.value;
 	console.log(nameVal);
-	if (nameVal.length < 2) {
-		labelName[0].innerHTML = 'Please enter a valid name:';
+	if (/[^a-zA-Z]/.test(nameVal)) {
+		labelName[0].innerHTML = 'Only letters are allowed:';
 		name.style.border = '1px solid red';
 		labelName[0].style.color = 'red';
 		return false;
-	} 	else if (nameVal.length > 2) {
+	} 	else if (/^[A-Za-z]+$/.test(nameVal)) {
 		labelName[0].innerHTML = 'Name:';
 		labelName[0].style.color = 'black';
 		name.style.border = '1px solid Green';
 		return true;
 	} else {
-		labelName[0].innerHTML = 'Please add a valid name:';
+		labelName[0].innerHTML = "Name field can't be blank:";
 		labelName[0].style.color = 'red';
 		name.style.border = '1px solid Red';
 
@@ -173,8 +175,8 @@ const emailValidator = () => {
 	const atSymb = emailVal.indexOf('@');
 	const lastIn = emailVal.lastIndexOf('.');
 
-	if (emailVal <= 1) {
-		labelName[1].innerHTML = 'Please enter a valid Email:';
+	if (emailVal <= 2) {
+		labelName[1].innerHTML = "Email field can't be blank:";
 		email.style.border = '1px solid Red';
 		labelName[1].style.color = 'red';
 		return false;
@@ -184,7 +186,7 @@ const emailValidator = () => {
 		email.style.border = '1px solid Green';
 		return true;
 	} 	else {
-		labelName[1].innerHTML = 'Please add a valid email address:';
+		labelName[1].innerHTML =  "Enter a valid email";
 		labelName[1].style.color = 'red';
 		email.style.border = '1px solid Red';
 		return false;
@@ -204,25 +206,32 @@ const activityValidator = () => {
 	return false;
 }
 
-const paymentValidator = () => {
-	const tarjaVal = tarja.value;
 
-	if ( tarjaVal < 16) {
-		labelName[14].innerHTML = 'Please enter a number that is between 13 and 16 digits long:';
+//credit cards allowed to make a test:
+// VISA 4012888888881881 
+// MasterCard 5105105105105100 
+// Amex 371449635398431 
+// Discover 6011111111111117 
+
+const paymentValidator = () => {
+	const creditcardVal = cc.value;
+
+	if ( creditcardVal < 16) {
+		labelName[14].innerHTML = "Credit Card field can't be blank:";
 		labelName[14].style.color = 'red';
-		tarja.style.border = '1px solid Red';
+		cc.style.border = '1px solid Red';
 		return false;
-	} else if ( /\b(?:3[47]\d|(?:4\d|5[1-5]|65)\d{2}|6011)\d{12}\b/.test(tarjaVal)) {
+	} else if ( /\b(?:3[47]\d|(?:4\d|5[1-5]|65)\d{2}|6011)\d{12}\b/.test(creditcardVal)) {
 		labelName[14].innerHTML = 'Card Number:';
 		labelName[14].style.color = 'black';
 
-		tarja.style.border = '1px solid Green';
+		cc.style.border = '1px solid Green';
 		return true;
 	} else {
-		labelName[14].innerHTML = 'Please add a valid credit card number:';
+		labelName[14].innerHTML = 'Please enter a number that is between 13 and 16 digits long:';
 		labelName[14].style.color = 'red';
 
-		tarja.style.border = '1px solid Red';
+		cc.style.border = '1px solid Red';
 
 		return false;
 	} 
@@ -231,9 +240,9 @@ const paymentValidator = () => {
 const zipValidator = () => {
 	const zipValue = zip.value;
 
-	if ( zipValue <= 4) {
+	if ( zipValue <= 0) {
 		
-		labelName[15].innerHTML = 'Please enter a 5 digit Zip Code:';
+		labelName[15].innerHTML = "Zip field can't be blank:";
 		labelName[15].style.color = 'red';
 		zip.style.border = '1px solid Red';
 		return false;
@@ -243,7 +252,7 @@ const zipValidator = () => {
 		zip.style.border = '1px solid Green';
 		return true;
 	} else {
-		labelName[15].innerHTML = 'Invalid Zip Code:';
+		labelName[15].innerHTML = 'Please enter a 5 digit Zip Code:';
 		labelName[15].style.color = 'red';
 		zip.style.border = '1px solid Red';
 
@@ -254,8 +263,8 @@ const zipValidator = () => {
 const cvvValidator = () => {
 	const cvvValue = cvv.value;
 
-	if ( cvvValue <= 2)  {
-		labelName[16].innerHTML = 'Please enter a 3 digit CVV:';
+	if ( cvvValue <= 0 )  {
+		labelName[16].innerHTML = "CVV field can't be blank:";
 		labelName[16].style.color = 'red';
 		cvv.style.border = '1px solid Red';
 		return false;
@@ -265,7 +274,7 @@ const cvvValidator = () => {
 		cvv.style.border = '1px solid Green';
 		return true;
 	} else {
-		labelName[16].innerHTML = 'Invalid CVV Code:';
+		labelName[16].innerHTML = 'Please enter a 3 digit CVV:';
 		labelName[16].style.color = 'red';
 		cvv.style.border = '1px solid Red';
 
@@ -273,9 +282,10 @@ const cvvValidator = () => {
 	} 
 }
 
+//real time validators
 name.addEventListener('keyup', nameValidator);
 email.addEventListener('keyup', emailValidator);
-tarja.addEventListener('keyup', paymentValidator);
+cc.addEventListener('keyup', paymentValidator);
 zip.addEventListener('keyup', zipValidator);
 cvv.addEventListener('keyup', cvvValidator);
 selectActivity.addEventListener('change', activityValidator);
