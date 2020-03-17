@@ -173,8 +173,6 @@ const nameValidator = () => {
 }
 const emailValidator = () => {
 	const emailVal = email.value;
-	const atSymb = emailVal.indexOf('@');
-	const lastIn = emailVal.lastIndexOf('.');
 
 	if (emailVal <= 0) {
 		labelName[1].innerHTML = "Email field can't be blank:";
@@ -206,13 +204,6 @@ const activityValidator = () => {
 	activityLegend.innerHTML = 'Please choose at least one activity';
 	return false;
 }
-
-
-//credit cards allowed to make a test:
-// VISA 4012888888881881 
-// MasterCard 5105105105105100 
-// Amex 371449635398431 
-// Discover 6011111111111117 
 
 const paymentValidator = () => {
 	const creditcardVal = cc.value;
