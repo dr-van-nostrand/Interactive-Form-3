@@ -111,27 +111,27 @@ const paypal = document.getElementById('paypal');
 paypal.hidden = true;
 const bitcoin = document.getElementById('bitcoin');
 bitcoin.hidden = true;
+
 designPaymentMethod.addEventListener('change', (e) => {
-	if (e.target.value === 'credit-card') {
-		creditcard.hidden = true;
+	if (e.target.value === 'credit card') {
+		creditcard.style.display = 'block';
 		paypal.hidden = true;
 		bitcoin.hidden = true;
-	} else {
-		creditcard.hidden = false;
 	}
 	if (e.target.value === 'paypal') {
 		paypal.hidden = false;
-		creditcard.hidden = true;
+		creditcard.style.display = 'none';
 		bitcoin.hidden = true;
-	} else {
-		paypal.hidden = true;
 	}
 	if (e.target.value === 'bitcoin') {
 		bitcoin.hidden = false;
-		creditcard.hidden = true;
+		creditcard.style.display = 'none';
 		paypal.hidden = true;
 	} else {
-		bitcoin.hidden = true;
+		const paymentLegend = document.querySelector('.activities legend');
+
+		paymentLegend.innerHTML = 'Please choose a payment option';
+
 	}
 });
 
@@ -300,12 +300,21 @@ form.addEventListener('submit', (e) => {
 	}
 	if (!paymentValidator()) {
 		e.preventDefault();
-	}
+	} else {
+        return true;
+    }
+    
 	if (!zipValidator()) {
 		e.preventDefault();
-	}
+	} else {
+        return true;
+    }
+    
 	if (!cvvValidator()) {
 		e.preventDefault();
-	}
+	} else {
+        return true;
+    }
+    
 	console.log('Submit handler is functional!');
 });
