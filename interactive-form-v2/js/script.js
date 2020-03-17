@@ -145,6 +145,9 @@ const email = document.querySelector("#mail");
 const selectActivity = document.querySelector('.activities');
 const activityLegend = document.querySelector('.activities legend');
 const activitiesInput = document.querySelectorAll(".activities input");
+const paymentMethod = document.querySelector('#payment option[value="select method"]');
+const creditcardOption = document.querySelector('#payment option[value="credit card"]');
+
 const cc = document.querySelector("#cc-num");
 const zip = document.querySelector("#zip");
 const cvv = document.querySelector("#cvv");
@@ -207,71 +210,74 @@ const activityValidator = () => {
 
 const paymentValidator = () => {
 	const creditcardVal = cc.value;
-
-	if ( creditcardVal <= 0) {
-		labelName[14].innerHTML = "Credit Card field can't be blank:";
-		labelName[14].style.color = 'red';
-		cc.style.border = '1px solid Red';
-		return false;
-	} else if ( /^\d{13,16}$/.test(creditcardVal)) {
-		labelName[14].innerHTML = 'Card Number:';
-		labelName[14].style.color = 'black';
-
-		cc.style.border = '1px solid Green';
-		return true;
+	if (creditcardOption.selected || paymentMethod.selected) {
+		if (creditcardVal <= 0) {
+			labelName[14].innerHTML = "Credit Card field can't be blank:";
+			labelName[14].style.color = 'red';
+			cc.style.border = '1px solid Red';
+			return false;
+		} else if (/^\d{13,16}$/.test(creditcardVal)) {
+			labelName[14].innerHTML = 'Card Number:';
+			labelName[14].style.color = 'black';
+			cc.style.border = '1px solid Green';
+			return true;
+		} else {
+			labelName[14].innerHTML = 'Please enter a number that is between 13 and 16 digits long:';
+			labelName[14].style.color = 'red';
+			cc.style.border = '1px solid Red';
+			return false;
+		}
 	} else {
-		labelName[14].innerHTML = 'Please enter a number that is between 13 and 16 digits long:';
-		labelName[14].style.color = 'red';
-
-		cc.style.border = '1px solid Red';
-
-		return false;
-	} 
+		return true;
+	}
 }
 
 const zipValidator = () => {
 	const zipValue = zip.value;
-
-	if ( zipValue <= 0) {
-		
-		labelName[15].innerHTML = "Zip field can't be blank:";
-		labelName[15].style.color = 'red';
-		zip.style.border = '1px solid Red';
-		return false;
-	} else if ( /^\d{5}$/.test(zipValue)) {
-		labelName[15].innerHTML = 'Zip Code:';
-		labelName[15].style.color = 'black';
-		zip.style.border = '1px solid Green';
-		return true;
+	if (creditcardOption.selected || paymentMethod.selected) {
+		if (zipValue <= 0) {
+			labelName[15].innerHTML = "Zip field can't be blank:";
+			labelName[15].style.color = 'red';
+			zip.style.border = '1px solid Red';
+			return false;
+		} else if (/^\d{5}$/.test(zipValue)) {
+			labelName[15].innerHTML = 'Zip Code:';
+			labelName[15].style.color = 'black';
+			zip.style.border = '1px solid Green';
+			return true;
+		} else {
+			labelName[15].innerHTML = 'Please enter a 5 digit Zip Code:';
+			labelName[15].style.color = 'red';
+			zip.style.border = '1px solid Red';
+			return false;
+		}
 	} else {
-		labelName[15].innerHTML = 'Please enter a 5 digit Zip Code:';
-		labelName[15].style.color = 'red';
-		zip.style.border = '1px solid Red';
-
-		return false;
-	} 
+		return true;
+	}
 }
 
 const cvvValidator = () => {
 	const cvvValue = cvv.value;
-
-	if ( cvvValue <= 0 )  {
-		labelName[16].innerHTML = "CVV field can't be blank:";
-		labelName[16].style.color = 'red';
-		cvv.style.border = '1px solid Red';
-		return false;
-	} else if ( /^\d{3}$/.test(cvvValue)) {
-		labelName[16].innerHTML = 'CVV:';
-		labelName[16].style.color = 'black';
-		cvv.style.border = '1px solid Green';
-		return true;
+	if (creditcardOption.selected || paymentMethod.selected) {
+		if (cvvValue <= 0) {
+			labelName[16].innerHTML = "CVV field can't be blank:";
+			labelName[16].style.color = 'red';
+			cvv.style.border = '1px solid Red';
+			return false;
+		} else if (/^\d{3}$/.test(cvvValue)) {
+			labelName[16].innerHTML = 'CVV:';
+			labelName[16].style.color = 'black';
+			cvv.style.border = '1px solid Green';
+			return true;
+		} else {
+			labelName[16].innerHTML = 'Please enter a 3 digit CVV:';
+			labelName[16].style.color = 'red';
+			cvv.style.border = '1px solid Red';
+			return false;
+		}
 	} else {
-		labelName[16].innerHTML = 'Please enter a 3 digit CVV:';
-		labelName[16].style.color = 'red';
-		cvv.style.border = '1px solid Red';
-
-		return false;
-	} 
+		return true;
+	}
 }
 
 //real time validators
