@@ -176,12 +176,12 @@ const emailValidator = () => {
 	const atSymb = emailVal.indexOf('@');
 	const lastIn = emailVal.lastIndexOf('.');
 
-	if (emailVal <= 2) {
+	if (emailVal <= 0) {
 		labelName[1].innerHTML = "Email field can't be blank:";
 		email.style.border = '1px solid Red';
 		labelName[1].style.color = 'red';
 		return false;
-	} else if (atSymb > 1 && lastIn > atSymb + 1) {
+	} else if( /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailVal)){
 		labelName[1].innerHTML = 'Email:';
 		labelName[1].style.color = 'black';
 		email.style.border = '1px solid Green';
@@ -217,12 +217,12 @@ const activityValidator = () => {
 const paymentValidator = () => {
 	const creditcardVal = cc.value;
 
-	if ( creditcardVal < 16) {
+	if ( creditcardVal <= 0) {
 		labelName[14].innerHTML = "Credit Card field can't be blank:";
 		labelName[14].style.color = 'red';
 		cc.style.border = '1px solid Red';
 		return false;
-	} else if ( /\b(?:3[47]\d|(?:4\d|5[1-5]|65)\d{2}|6011)\d{12}\b/.test(creditcardVal)) {
+	} else if ( /^\d{13,16}$/.test(creditcardVal)) {
 		labelName[14].innerHTML = 'Card Number:';
 		labelName[14].style.color = 'black';
 
@@ -247,7 +247,7 @@ const zipValidator = () => {
 		labelName[15].style.color = 'red';
 		zip.style.border = '1px solid Red';
 		return false;
-	} else if ( /^\d{5}(?:[-\s]\d{4})?$/.test(zipValue)) {
+	} else if ( /^\d{5}$/.test(zipValue)) {
 		labelName[15].innerHTML = 'Zip Code:';
 		labelName[15].style.color = 'black';
 		zip.style.border = '1px solid Green';
@@ -269,7 +269,7 @@ const cvvValidator = () => {
 		labelName[16].style.color = 'red';
 		cvv.style.border = '1px solid Red';
 		return false;
-	} else if ( /^[0-9]{3,4}$/.test(cvvValue)) {
+	} else if ( /^\d{3}$/.test(cvvValue)) {
 		labelName[16].innerHTML = 'CVV:';
 		labelName[16].style.color = 'black';
 		cvv.style.border = '1px solid Green';
